@@ -1,0 +1,12 @@
+{
+  "image": "node:20",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "GitHub.vscode-github-actions"
+      ]
+    }
+  }
+}
