@@ -14,10 +14,40 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Body() {
+  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // North Elevator
+  const [northElevatorIsBroken, setNorthElevatorIsBroken] = useState(false);
+  const [northElevatorTimestampUpdated, setNorthElevatorTimestampUpdated] =
+    useState(0);
+
+  // South Elevator
+  const [southElevatorIsBroken, setSouthElevatorIsBroken] = useState(false);
+  const [southElevatorTimestampUpdated, setSouthElevatorTimestampUpdated] =
+    useState(0);
+
+  // API URL
+  const api = "https://36zjfwfk51.execute-api.us-west-2.amazonaws.com/";
+
+  // Fetch initial API Data
+  useEffect(() => {
+    const fetch = async () => {
+      var response = (await axios.get(api)).data;
+
+      setNorthElevatorIsBroken(response.north.isBroken);
+      setNorthElevatorTimestampUpdated(response.north.timestampUpdated);
+
+      setSouthElevatorIsBroken(response.south.isBroken);
+      setSouthElevatorTimestampUpdated(response.south.timestampUpdated);
+    };
+
+    fetch();
+  }, []);
 
   return (
     <Container
@@ -49,12 +79,15 @@ export default function Body() {
 
                 {/* Current Status */}
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Status: Open
+                  Status: {northElevatorIsBroken ? "Broken" : "Operational"}
                 </Typography>
 
                 {/* Last Updated Date */}
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Last updated: dd-mm-yyyy
+                  Last updated:{" "}
+                  {new Date(
+                    northElevatorTimestampUpdated * 1000
+                  ).toLocaleString()}
                 </Typography>
               </CardContent>
 
@@ -85,12 +118,15 @@ export default function Body() {
 
                 {/* Current Status */}
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Status: Closed
+                  Status: {southElevatorIsBroken ? "Broken" : "Operational"}
                 </Typography>
 
                 {/* Last Updated Date */}
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Last updated: dd-mm-yyyy
+                  Last updated:{" "}
+                  {new Date(
+                    southElevatorTimestampUpdated * 1000
+                  ).toLocaleString()}
                 </Typography>
               </CardContent>
 
