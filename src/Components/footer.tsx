@@ -25,7 +25,7 @@ export default function Footer() {
         </Tooltip>
         <Tooltip title="Source Code">
           <Link
-            href="https://github.com/xsalazar/project-template"
+            href="https://github.com/xsalazar/are-the-elevators-broken"
             color="textPrimary"
             aria-label="Source Code"
             target="_blank"
