@@ -13,6 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
+import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -25,14 +26,14 @@ export default function Body() {
   );
 
   // North Elevator
-  const [northElevatorIsBroken, setNorthElevatorIsBroken] = useState(false);
+  const [northElevatorIsBroken, setNorthElevatorIsBroken] = useState();
   const [northElevatorTimestampUpdated, setNorthElevatorTimestampUpdated] =
-    useState(0);
+    useState();
 
   // South Elevator
-  const [southElevatorIsBroken, setSouthElevatorIsBroken] = useState(false);
+  const [southElevatorIsBroken, setSouthElevatorIsBroken] = useState();
   const [southElevatorTimestampUpdated, setSouthElevatorTimestampUpdated] =
-    useState(0);
+    useState();
 
   // API URL
   const api = "https://36zjfwfk51.execute-api.us-west-2.amazonaws.com/";
@@ -93,22 +94,69 @@ export default function Body() {
                 </Typography>
 
                 {/* Current Status */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Status: {northElevatorIsBroken ? "Broken" : "Operational"}
-                </Typography>
+                <Grid container>
+                  {/* Status */}
+                  <Grid>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                      pr={1}
+                    >
+                      Status:
+                    </Typography>
+                  </Grid>
+
+                  {/* Status Loader */}
+                  <Grid size={4}>
+                    {northElevatorIsBroken === undefined ? (
+                      <Skeleton />
+                    ) : (
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {northElevatorIsBroken ? "Broken" : "Operational"}
+                      </Typography>
+                    )}
+                  </Grid>
+                </Grid>
 
                 {/* Last Updated Date */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Last updated:{" "}
-                  {new Date(
-                    northElevatorTimestampUpdated * 1000
-                  ).toLocaleString()}
-                </Typography>
+                <Grid container>
+                  {/* Last Updated */}
+                  <Grid>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                      pr={1}
+                    >
+                      Last updated:
+                    </Typography>
+                  </Grid>
+
+                  {/* Last Updated Loader */}
+                  <Grid size={4}>
+                    <Typography
+                      component="div"
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      {northElevatorTimestampUpdated === undefined ? (
+                        <Skeleton />
+                      ) : (
+                        new Date(
+                          northElevatorTimestampUpdated * 1000
+                        ).toLocaleString()
+                      )}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </CardContent>
 
               {/* North Elevator Update Button */}
               <CardActions>
                 <Button
+                  disabled={northElevatorTimestampUpdated === undefined}
                   onClick={() => {
                     setSelectedElevator("north");
                     setIsModalOpen(true);
@@ -137,22 +185,69 @@ export default function Body() {
                 </Typography>
 
                 {/* Current Status */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Status: {southElevatorIsBroken ? "Broken" : "Operational"}
-                </Typography>
+                <Grid container>
+                  {/* Status */}
+                  <Grid>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                      pr={1}
+                    >
+                      Status:
+                    </Typography>
+                  </Grid>
+
+                  {/* Status Loader */}
+                  <Grid size={4}>
+                    {southElevatorIsBroken === undefined ? (
+                      <Skeleton />
+                    ) : (
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {southElevatorIsBroken ? "Broken" : "Operational"}
+                      </Typography>
+                    )}
+                  </Grid>
+                </Grid>
 
                 {/* Last Updated Date */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Last updated:{" "}
-                  {new Date(
-                    southElevatorTimestampUpdated * 1000
-                  ).toLocaleString()}
-                </Typography>
+                <Grid container>
+                  {/* Last Updated */}
+                  <Grid>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                      pr={1}
+                    >
+                      Last updated:
+                    </Typography>
+                  </Grid>
+
+                  {/* Last Updated Loader */}
+                  <Grid size={4}>
+                    <Typography
+                      component="div"
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      {southElevatorTimestampUpdated === undefined ? (
+                        <Skeleton />
+                      ) : (
+                        new Date(
+                          southElevatorTimestampUpdated * 1000
+                        ).toLocaleString()
+                      )}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </CardContent>
 
               {/* South Elevator Update Button */}
               <CardActions>
                 <Button
+                  disabled={southElevatorTimestampUpdated === undefined}
                   onClick={() => {
                     setSelectedElevator("south");
                     setIsModalOpen(true);
@@ -169,7 +264,7 @@ export default function Body() {
       {/* Update Modal */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {/* Modal Title and Close Button */}
-        <DialogTitle>Title</DialogTitle>
+        <DialogTitle>Update Status</DialogTitle>
         <IconButton
           aria-label="close"
           onClick={() => setIsModalOpen(false)}
@@ -186,7 +281,9 @@ export default function Body() {
         {/* Modal Content */}
         <DialogContent>
           <DialogContentText>
-            Is the {selectedElevator} elevator currently broken?
+            <Typography>
+              Is the {selectedElevator} elevator currently broken?
+            </Typography>
           </DialogContentText>
         </DialogContent>
 
