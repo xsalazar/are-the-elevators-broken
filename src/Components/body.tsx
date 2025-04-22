@@ -1,5 +1,4 @@
 import CloseIcon from "@mui/icons-material/Close";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -75,191 +74,181 @@ export default function Body() {
         flexGrow: "1",
       }}
     >
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container size={2} direction="column" spacing={2}>
-          <Grid>
-            {/* North Elevator */}
-            <Card variant="outlined">
-              {/* North Elevator Image */}
-              <CardMedia
-                sx={{ height: "128px" }}
-                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
-              ></CardMedia>
+      <Grid container size={1} direction="column" spacing={2} width="100%">
+        {/* North Elevator */}
+        <Grid>
+          <Card variant="outlined">
+            {/* North Elevator Image */}
+            <CardMedia
+              sx={{ height: "128px" }}
+              image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+            ></CardMedia>
 
-              {/* North Elevator Content */}
-              <CardContent>
-                {/* Title */}
-                <Typography gutterBottom variant="h5">
-                  North Elevator
-                </Typography>
+            {/* North Elevator Content */}
+            <CardContent>
+              {/* Title */}
+              <Typography gutterBottom variant="h5">
+                North Elevator
+              </Typography>
 
-                {/* Current Status */}
-                <Grid container>
-                  {/* Status */}
-                  <Grid>
+              {/* Current Status */}
+              <Grid container>
+                {/* Status */}
+                <Grid>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Status:
+                  </Typography>
+                </Grid>
+
+                {/* Status Loader */}
+                <Grid size={4}>
+                  {northElevatorIsBroken === undefined ? (
+                    <Skeleton />
+                  ) : (
                     <Typography
                       variant="body2"
                       sx={{ color: "text.secondary" }}
-                      pr={1}
                     >
-                      Status:
+                      {northElevatorIsBroken ? "Broken" : "Operational"}
                     </Typography>
-                  </Grid>
+                  )}
+                </Grid>
+              </Grid>
 
-                  {/* Status Loader */}
-                  <Grid size={4}>
-                    {northElevatorIsBroken === undefined ? (
+              {/* Last Updated Date */}
+              <Grid container>
+                {/* Last Updated */}
+                <Grid>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Last updated:
+                  </Typography>
+                </Grid>
+
+                {/* Last Updated Loader */}
+                <Grid size={6}>
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {northElevatorTimestampUpdated === undefined ? (
                       <Skeleton />
                     ) : (
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        {northElevatorIsBroken ? "Broken" : "Operational"}
-                      </Typography>
+                      new Date(
+                        northElevatorTimestampUpdated * 1000
+                      ).toLocaleString()
                     )}
-                  </Grid>
+                  </Typography>
                 </Grid>
+              </Grid>
+            </CardContent>
 
-                {/* Last Updated Date */}
-                <Grid container>
-                  {/* Last Updated */}
-                  <Grid>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                      pr={1}
-                    >
-                      Last updated:
-                    </Typography>
-                  </Grid>
-
-                  {/* Last Updated Loader */}
-                  <Grid size={4}>
-                    <Typography
-                      component="div"
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                    >
-                      {northElevatorTimestampUpdated === undefined ? (
-                        <Skeleton />
-                      ) : (
-                        new Date(
-                          northElevatorTimestampUpdated * 1000
-                        ).toLocaleString()
-                      )}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-
-              {/* North Elevator Update Button */}
-              <CardActions>
-                <Button
-                  disabled={northElevatorTimestampUpdated === undefined}
-                  onClick={() => {
-                    setSelectedElevator("north");
-                    setIsModalOpen(true);
-                  }}
-                >
-                  Update Status
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-
-          {/* South Elevator */}
-          <Grid>
-            <Card variant="outlined">
-              {/* South Elevator Image */}
-              <CardMedia
-                sx={{ height: "128px" }}
-                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
-              ></CardMedia>
-
-              {/* South Elevator Content */}
-              <CardContent>
-                {/* Title */}
-                <Typography gutterBottom variant="h5">
-                  South Elevator
-                </Typography>
-
-                {/* Current Status */}
-                <Grid container>
-                  {/* Status */}
-                  <Grid>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                      pr={1}
-                    >
-                      Status:
-                    </Typography>
-                  </Grid>
-
-                  {/* Status Loader */}
-                  <Grid size={4}>
-                    {southElevatorIsBroken === undefined ? (
-                      <Skeleton />
-                    ) : (
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        {southElevatorIsBroken ? "Broken" : "Operational"}
-                      </Typography>
-                    )}
-                  </Grid>
-                </Grid>
-
-                {/* Last Updated Date */}
-                <Grid container>
-                  {/* Last Updated */}
-                  <Grid>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                      pr={1}
-                    >
-                      Last updated:
-                    </Typography>
-                  </Grid>
-
-                  {/* Last Updated Loader */}
-                  <Grid size={4}>
-                    <Typography
-                      component="div"
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                    >
-                      {southElevatorTimestampUpdated === undefined ? (
-                        <Skeleton />
-                      ) : (
-                        new Date(
-                          southElevatorTimestampUpdated * 1000
-                        ).toLocaleString()
-                      )}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-
-              {/* South Elevator Update Button */}
-              <CardActions>
-                <Button
-                  disabled={southElevatorTimestampUpdated === undefined}
-                  onClick={() => {
-                    setSelectedElevator("south");
-                    setIsModalOpen(true);
-                  }}
-                >
-                  Update Status
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
+            {/* North Elevator Update Button */}
+            <CardActions>
+              <Button
+                disabled={northElevatorTimestampUpdated === undefined}
+                onClick={() => {
+                  setSelectedElevator("north");
+                  setIsModalOpen(true);
+                }}
+              >
+                Update Status
+              </Button>
+            </CardActions>
+          </Card>
         </Grid>
-      </Box>
+
+        {/* South Elevator */}
+        <Grid>
+          <Card variant="outlined">
+            {/* South Elevator Image */}
+            <CardMedia
+              sx={{ height: "128px" }}
+              image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+            ></CardMedia>
+
+            {/* South Elevator Content */}
+            <CardContent>
+              {/* Title */}
+              <Typography gutterBottom variant="h5">
+                South Elevator
+              </Typography>
+
+              {/* Current Status */}
+              <Grid container>
+                {/* Status */}
+                <Grid>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Status:
+                  </Typography>
+                </Grid>
+
+                {/* Status Loader */}
+                <Grid size={4}>
+                  {southElevatorIsBroken === undefined ? (
+                    <Skeleton />
+                  ) : (
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "text.secondary" }}
+                    >
+                      {southElevatorIsBroken ? "Broken" : "Operational"}
+                    </Typography>
+                  )}
+                </Grid>
+              </Grid>
+
+              {/* Last Updated Date */}
+              <Grid container>
+                {/* Last Updated */}
+                <Grid>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Last updated:
+                  </Typography>
+                </Grid>
+
+                {/* Last Updated Loader */}
+                <Grid size={6}>
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {southElevatorTimestampUpdated === undefined ? (
+                      <Skeleton />
+                    ) : (
+                      new Date(
+                        southElevatorTimestampUpdated * 1000
+                      ).toLocaleString()
+                    )}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+
+            {/* South Elevator Update Button */}
+            <CardActions>
+              <Button
+                disabled={southElevatorTimestampUpdated === undefined}
+                onClick={() => {
+                  setSelectedElevator("south");
+                  setIsModalOpen(true);
+                }}
+              >
+                Update Status
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
 
       {/* Update Modal */}
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
