@@ -1,6 +1,10 @@
-# 💡 Project Template
+# 🛗 Are The Elevators Broken
 
-💡 Template repository used to bootstrap Typescript React projects with GitHub Actions CI/CD and VSCode devcontainer support.
+This repository contains the source code for the website [https://aretheelevatorsbroken.com](https://aretheelevatorsbroken.com).
+
+This website allows for community report driven details about critical pedestrian infrastructure in Portland, OR.
+
+The [Bob Stacey Crossing](https://en.wikipedia.org/wiki/Bob_Stacey_Crossing) provides a link over the trains that frequently block the Inner SE Portland streets. When these elevators are broken, it requires pedestrians to reroute far away to bypass them. This website allows for checking the status of the elevators before you arrive, so you can plan accordingly.
 
 ## Getting Started
 
@@ -8,13 +12,13 @@ This repository leverages [VSCode's devcontainer](https://code.visualstudio.com/
 
 ### Application
 
-To get started:
+To get started, you will need to first download the supporting metadata, then install and start the project normally:
 
 ```bash
 npm install && npm start
 ```
 
-This will start the application on your local machine, running on [http://127.0.0.1:5173/](http://127.0.0.1:5173).
+This will start the application on your local machine, running on [http://localhost:5173/](http://localhost:5173).
 
 ### Deployments
 
