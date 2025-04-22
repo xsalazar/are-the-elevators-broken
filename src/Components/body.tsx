@@ -1,4 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
+import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,6 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -19,11 +21,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Body() {
-  // Modal State
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Update Status Modal
+  const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
   const [selectedElevator, setSelectedElevator] = useState<"north" | "south">(
     "north"
   );
+
+  // Learn More Modal
+  const [isLearnMoreModalOpen, setIsLearnMoreModalOpen] = useState(false);
 
   // North Elevator
   const [northElevatorIsBroken, setNorthElevatorIsBroken] = useState();
@@ -53,6 +58,7 @@ export default function Body() {
     fetch();
   }, []);
 
+  // Update API Data
   const updateData = async (elevator: "north" | "south", isBroken: boolean) => {
     const response = (await axios.put(api, { elevator, isBroken })).data;
 
@@ -62,7 +68,7 @@ export default function Body() {
     setSouthElevatorIsBroken(response.south.isBroken);
     setSouthElevatorTimestampUpdated(response.south.timestampUpdated);
 
-    setIsModalOpen(false);
+    setIsUpdateStatusModalOpen(false);
   };
 
   return (
@@ -75,191 +81,205 @@ export default function Body() {
         flexGrow: "1",
       }}
     >
-      {/* Main Cards */}
-      <Grid
-        container
-        size={1}
-        direction="column"
-        spacing={2}
-        width="100%"
-        pt={2}
-      >
-        {/* North Elevator */}
-        <Grid>
-          <Card variant="outlined">
-            {/* North Elevator Image */}
-            <CardMedia
-              sx={{ height: "128px" }}
-              image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
-            ></CardMedia>
+      <Stack direction="column" width="100%" pt={2}>
+        <Typography variant="h4" gutterBottom>
+          Are the elevators broken?
+        </Typography>
 
-            {/* North Elevator Content */}
-            <CardContent>
-              {/* Title */}
-              <Typography gutterBottom variant="h5">
-                North Elevator
-              </Typography>
+        {/* Main Cards */}
+        <Grid container size={1} direction="column" spacing={2}>
+          {/* North Elevator */}
+          <Grid>
+            <Card variant="outlined">
+              {/* North Elevator Image */}
+              <CardMedia
+                sx={{ height: "128px" }}
+                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+              ></CardMedia>
 
-              {/* Current Status */}
-              <Stack direction="row">
-                {/* Status */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary" }}
-                  pr={1}
-                >
-                  Status:
+              {/* North Elevator Content */}
+              <CardContent>
+                {/* Title */}
+                <Typography gutterBottom variant="h5">
+                  North Elevator
                 </Typography>
 
-                {/* Status Loader */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary", width: "50%" }}
-                >
-                  {northElevatorIsBroken === undefined ? (
-                    <Skeleton />
-                  ) : northElevatorIsBroken ? (
-                    "Broken"
-                  ) : (
-                    "Operational"
-                  )}
-                </Typography>
-              </Stack>
+                {/* Current Status */}
+                <Stack direction="row">
+                  {/* Status */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Status:
+                  </Typography>
 
-              {/* Last Updated Date */}
-              <Stack direction="row">
-                {/* Last Updated */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary" }}
-                  pr={1}
+                  {/* Status Loader */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", width: "50%" }}
+                  >
+                    {northElevatorIsBroken === undefined ? (
+                      <Skeleton />
+                    ) : northElevatorIsBroken ? (
+                      "Broken"
+                    ) : (
+                      "Operational"
+                    )}
+                  </Typography>
+                </Stack>
+
+                {/* Last Updated Date */}
+                <Stack direction="row">
+                  {/* Last Updated */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Last updated:
+                  </Typography>
+
+                  {/* Last Updated Loader */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", width: "50%" }}
+                  >
+                    {northElevatorTimestampUpdated === undefined ? (
+                      <Skeleton />
+                    ) : (
+                      new Date(
+                        northElevatorTimestampUpdated * 1000
+                      ).toLocaleString()
+                    )}
+                  </Typography>
+                </Stack>
+              </CardContent>
+
+              {/* North Elevator Update Button */}
+              <CardActions>
+                <Button
+                  disabled={northElevatorTimestampUpdated === undefined}
+                  onClick={() => {
+                    setSelectedElevator("north");
+                    setIsUpdateStatusModalOpen(true);
+                  }}
                 >
-                  Last updated:
+                  Update Status
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+
+          {/* South Elevator */}
+          <Grid>
+            <Card variant="outlined">
+              {/* South Elevator Image */}
+              <CardMedia
+                sx={{ height: "128px" }}
+                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+              ></CardMedia>
+
+              {/* South Elevator Content */}
+              <CardContent>
+                {/* Title */}
+                <Typography gutterBottom variant="h5">
+                  South Elevator
                 </Typography>
 
-                {/* Last Updated Loader */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary", width: "50%" }}
-                >
-                  {northElevatorTimestampUpdated === undefined ? (
-                    <Skeleton />
-                  ) : (
-                    new Date(
-                      northElevatorTimestampUpdated * 1000
-                    ).toLocaleString()
-                  )}
-                </Typography>
-              </Stack>
-            </CardContent>
+                {/* Current Status */}
+                <Stack direction="row">
+                  {/* Status */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Status:
+                  </Typography>
 
-            {/* North Elevator Update Button */}
-            <CardActions>
-              <Button
-                disabled={northElevatorTimestampUpdated === undefined}
-                onClick={() => {
-                  setSelectedElevator("north");
-                  setIsModalOpen(true);
-                }}
-              >
-                Update Status
-              </Button>
-            </CardActions>
-          </Card>
+                  {/* Status Loader */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", width: "50%" }}
+                  >
+                    {southElevatorIsBroken === undefined ? (
+                      <Skeleton />
+                    ) : southElevatorIsBroken ? (
+                      "Broken"
+                    ) : (
+                      "Operational"
+                    )}
+                  </Typography>
+                </Stack>
+
+                {/* Last Updated Date */}
+                <Stack direction="row">
+                  {/* Last Updated */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary" }}
+                    pr={1}
+                  >
+                    Last updated:
+                  </Typography>
+
+                  {/* Last Updated Loader */}
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", width: "50%" }}
+                  >
+                    {southElevatorTimestampUpdated === undefined ? (
+                      <Skeleton />
+                    ) : (
+                      new Date(
+                        southElevatorTimestampUpdated * 1000
+                      ).toLocaleString()
+                    )}
+                  </Typography>
+                </Stack>
+              </CardContent>
+
+              {/* South Elevator Update Button */}
+              <CardActions>
+                <Button
+                  disabled={southElevatorTimestampUpdated === undefined}
+                  onClick={() => {
+                    setSelectedElevator("south");
+                    setIsUpdateStatusModalOpen(true);
+                  }}
+                >
+                  Update Status
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
 
-        {/* South Elevator */}
-        <Grid>
-          <Card variant="outlined">
-            {/* South Elevator Image */}
-            <CardMedia
-              sx={{ height: "128px" }}
-              image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
-            ></CardMedia>
-
-            {/* South Elevator Content */}
-            <CardContent>
-              {/* Title */}
-              <Typography gutterBottom variant="h5">
-                South Elevator
-              </Typography>
-
-              {/* Current Status */}
-              <Stack direction="row">
-                {/* Status */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary" }}
-                  pr={1}
-                >
-                  Status:
-                </Typography>
-
-                {/* Status Loader */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary", width: "50%" }}
-                >
-                  {southElevatorIsBroken === undefined ? (
-                    <Skeleton />
-                  ) : southElevatorIsBroken ? (
-                    "Broken"
-                  ) : (
-                    "Operational"
-                  )}
-                </Typography>
-              </Stack>
-
-              {/* Last Updated Date */}
-              <Stack direction="row">
-                {/* Last Updated */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary" }}
-                  pr={1}
-                >
-                  Last updated:
-                </Typography>
-
-                {/* Last Updated Loader */}
-                <Typography
-                  variant="body2"
-                  sx={{ color: "text.secondary", width: "50%" }}
-                >
-                  {southElevatorTimestampUpdated === undefined ? (
-                    <Skeleton />
-                  ) : (
-                    new Date(
-                      southElevatorTimestampUpdated * 1000
-                    ).toLocaleString()
-                  )}
-                </Typography>
-              </Stack>
-            </CardContent>
-
-            {/* South Elevator Update Button */}
-            <CardActions>
-              <Button
-                disabled={southElevatorTimestampUpdated === undefined}
-                onClick={() => {
-                  setSelectedElevator("south");
-                  setIsModalOpen(true);
-                }}
-              >
-                Update Status
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
+        {/* Learn More */}
+        <Link
+          href="#"
+          onClick={(event) => {
+            event.preventDefault();
+            setIsLearnMoreModalOpen(true);
+          }}
+          variant="caption"
+        >
+          Learn more
+        </Link>
+      </Stack>
 
       {/* Update Modal */}
-      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Dialog
+        open={isUpdateStatusModalOpen}
+        onClose={() => setIsUpdateStatusModalOpen(false)}
+      >
         {/* Modal Title and Close Button */}
         <DialogTitle>Update Status</DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={() => setIsModalOpen(false)}
+          onClick={() => setIsUpdateStatusModalOpen(false)}
           sx={(theme) => ({
             position: "absolute",
             right: 8,
@@ -295,6 +315,60 @@ export default function Body() {
             Yes
           </Button>
         </DialogActions>
+      </Dialog>
+
+      {/* Learn More Modal */}
+      <Dialog
+        open={isLearnMoreModalOpen}
+        onClose={() => setIsLearnMoreModalOpen(false)}
+      >
+        {/* Modal Title and Close Button */}
+        <DialogTitle>Learn More</DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={() => setIsLearnMoreModalOpen(false)}
+          sx={(theme) => ({
+            position: "absolute",
+            right: 8,
+            top: 11,
+            color: theme.palette.grey[500],
+          })}
+        >
+          <CloseIcon />
+        </IconButton>
+
+        {/* Modal Content */}
+        <DialogContent>
+          <DialogContentText>
+            <Typography>
+              The two elevators located on the north and south ends of the Bob
+              Stacey Crossing are frequently broken, unfortunately. This website
+              operates on a community-driven reporting system to allow for
+              people to quickly check if the elevators are broken before
+              arriving.
+            </Typography>
+            <br />
+            <Typography>
+              When the trains are blocking the street level crossings, and the
+              elevators are broken, it's likely that you will need to detour far
+              out of your way to get around. Now you can know this information
+              before arriving.
+            </Typography>
+            <br />
+            <Divider />
+            <br />
+            <Typography>
+              Bob Stacey Crossing (formerly Gideon Overcrossing) is a pedestrian
+              bridge in southeast Portland, Oregon's Hosford-Abernethy
+              neighborhood, in the United States. The bridge spans tracks for
+              both Union Pacific Railroad and TriMet's MAX Light Rail.
+              Construction on the $15 million project started in May 2019. The
+              overcrossing opened in November 2020. The Portland Bureau of
+              Transportation (PBOT) renamed the bridge Bob Stacey Crossing in
+              2021 in honor of Bob Stacey.
+            </Typography>
+          </DialogContentText>
+        </DialogContent>
       </Dialog>
     </Container>
   );
