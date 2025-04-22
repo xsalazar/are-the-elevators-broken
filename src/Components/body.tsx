@@ -13,6 +13,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -92,59 +93,48 @@ export default function Body() {
               </Typography>
 
               {/* Current Status */}
-              <Grid container>
+              <Stack direction="row">
                 {/* Status */}
-                <Grid>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary" }}
-                    pr={1}
-                  >
-                    Status:
-                  </Typography>
-                </Grid>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  pr={1}
+                >
+                  Status:
+                </Typography>
 
                 {/* Status Loader */}
-                <Grid size={4}>
-                  {northElevatorIsBroken === undefined ? (
-                    <Skeleton />
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                    >
-                      {northElevatorIsBroken ? "Broken" : "Operational"}
-                    </Typography>
-                  )}
-                </Grid>
-              </Grid>
+                {northElevatorIsBroken === undefined ? (
+                  <Skeleton />
+                ) : (
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {northElevatorIsBroken ? "Broken" : "Operational"}
+                  </Typography>
+                )}
+              </Stack>
 
               {/* Last Updated Date */}
-              <Grid container>
+              <Stack direction="row">
                 {/* Last Updated */}
-                <Grid>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary" }}
-                    pr={1}
-                  >
-                    Last updated:
-                  </Typography>
-                </Grid>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  pr={1}
+                >
+                  Last updated:
+                </Typography>
 
                 {/* Last Updated Loader */}
-                <Grid size={6}>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {northElevatorTimestampUpdated === undefined ? (
-                      <Skeleton />
-                    ) : (
-                      new Date(
-                        northElevatorTimestampUpdated * 1000
-                      ).toLocaleString()
-                    )}
-                  </Typography>
-                </Grid>
-              </Grid>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  {northElevatorTimestampUpdated === undefined ? (
+                    <Skeleton />
+                  ) : (
+                    new Date(
+                      northElevatorTimestampUpdated * 1000
+                    ).toLocaleString()
+                  )}
+                </Typography>
+              </Stack>
             </CardContent>
 
             {/* North Elevator Update Button */}
@@ -179,59 +169,48 @@ export default function Body() {
               </Typography>
 
               {/* Current Status */}
-              <Grid container>
+              <Stack direction="row">
                 {/* Status */}
-                <Grid>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary" }}
-                    pr={1}
-                  >
-                    Status:
-                  </Typography>
-                </Grid>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  pr={1}
+                >
+                  Status:
+                </Typography>
 
                 {/* Status Loader */}
-                <Grid size={4}>
-                  {southElevatorIsBroken === undefined ? (
-                    <Skeleton />
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary" }}
-                    >
-                      {southElevatorIsBroken ? "Broken" : "Operational"}
-                    </Typography>
-                  )}
-                </Grid>
-              </Grid>
+                {southElevatorIsBroken === undefined ? (
+                  <Skeleton />
+                ) : (
+                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                    {southElevatorIsBroken ? "Broken" : "Operational"}
+                  </Typography>
+                )}
+              </Stack>
 
               {/* Last Updated Date */}
-              <Grid container>
+              <Stack direction="row">
                 {/* Last Updated */}
-                <Grid>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary" }}
-                    pr={1}
-                  >
-                    Last updated:
-                  </Typography>
-                </Grid>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary" }}
+                  pr={1}
+                >
+                  Last updated:
+                </Typography>
 
                 {/* Last Updated Loader */}
-                <Grid size={6}>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {southElevatorTimestampUpdated === undefined ? (
-                      <Skeleton />
-                    ) : (
-                      new Date(
-                        southElevatorTimestampUpdated * 1000
-                      ).toLocaleString()
-                    )}
-                  </Typography>
-                </Grid>
-              </Grid>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  {southElevatorTimestampUpdated === undefined ? (
+                    <Skeleton />
+                  ) : (
+                    new Date(
+                      southElevatorTimestampUpdated * 1000
+                    ).toLocaleString()
+                  )}
+                </Typography>
+              </Stack>
             </CardContent>
 
             {/* South Elevator Update Button */}
