@@ -21,11 +21,22 @@ import { useEffect, useState } from "react";
 import bypassImageUrl from "../assets/detour-map-pbot.png";
 
 export default function Body() {
+  // Check if loading with query params
+  const queryParams = new URLSearchParams(window.location.search);
+  let elevator = "north";
+  let modalOnLoad = false;
+  if (queryParams.has("elevator")) {
+    let param = queryParams.get("elevator");
+    if (param === "north" || param === "south") {
+      elevator = param;
+      modalOnLoad = true;
+    }
+  }
+
   // Update Status Modal
-  const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState(false);
-  const [selectedElevator, setSelectedElevator] = useState<"north" | "south">(
-    "north"
-  );
+  const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] =
+    useState(modalOnLoad);
+  const [selectedElevator, setSelectedElevator] = useState<string>(elevator);
 
   // Learn More Modal
   const [isLearnMoreModalOpen, setIsLearnMoreModalOpen] = useState(false);
@@ -59,7 +70,7 @@ export default function Body() {
   }, []);
 
   // Update API Data
-  const updateData = async (elevator: "north" | "south", isBroken: boolean) => {
+  const updateData = async (elevator: string, isBroken: boolean) => {
     const response = (await axios.put(api, { elevator, isBroken })).data;
 
     setNorthElevatorIsBroken(response.north.isBroken);
