@@ -1,5 +1,4 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -19,6 +18,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import bypassImageUrl from "../assets/detour-map-pbot.png";
 
 export default function Body() {
   // Update Status Modal
@@ -355,18 +355,7 @@ export default function Body() {
               before arriving.
             </Typography>
             <br />
-            <Divider />
-            <br />
-            <Typography>
-              Bob Stacey Crossing (formerly Gideon Overcrossing) is a pedestrian
-              bridge in southeast Portland, Oregon's Hosford-Abernethy
-              neighborhood, in the United States. The bridge spans tracks for
-              both Union Pacific Railroad and TriMet's MAX Light Rail.
-              Construction on the $15 million project started in May 2019. The
-              overcrossing opened in November 2020. The Portland Bureau of
-              Transportation (PBOT) renamed the bridge Bob Stacey Crossing in
-              2021 in honor of Bob Stacey.
-            </Typography>
+            <img src={bypassImageUrl} width="100%" />
           </DialogContentText>
         </DialogContent>
       </Dialog>
