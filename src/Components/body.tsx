@@ -20,6 +20,9 @@ import { useEffect, useState } from "react";
 export default function Body() {
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedElevator, setSelectedElevator] = useState<"north" | "south">(
+    "north"
+  );
 
   // North Elevator
   const [northElevatorIsBroken, setNorthElevatorIsBroken] = useState(false);
@@ -48,6 +51,18 @@ export default function Body() {
 
     fetch();
   }, []);
+
+  const updateData = async (elevator: "north" | "south", isBroken: boolean) => {
+    const response = (await axios.put(api, { elevator, isBroken })).data;
+
+    setNorthElevatorIsBroken(response.north.isBroken);
+    setNorthElevatorTimestampUpdated(response.north.timestampUpdated);
+
+    setSouthElevatorIsBroken(response.south.isBroken);
+    setSouthElevatorTimestampUpdated(response.south.timestampUpdated);
+
+    setIsModalOpen(false);
+  };
 
   return (
     <Container
@@ -93,7 +108,12 @@ export default function Body() {
 
               {/* North Elevator Update Button */}
               <CardActions>
-                <Button onClick={() => setIsModalOpen(true)}>
+                <Button
+                  onClick={() => {
+                    setSelectedElevator("north");
+                    setIsModalOpen(true);
+                  }}
+                >
                   Update Status
                 </Button>
               </CardActions>
@@ -132,7 +152,12 @@ export default function Body() {
 
               {/* South Elevator Update Button */}
               <CardActions>
-                <Button onClick={() => setIsModalOpen(true)}>
+                <Button
+                  onClick={() => {
+                    setSelectedElevator("south");
+                    setIsModalOpen(true);
+                  }}
+                >
                   Update Status
                 </Button>
               </CardActions>
@@ -161,14 +186,23 @@ export default function Body() {
         {/* Modal Content */}
         <DialogContent>
           <DialogContentText>
-            Is the elevator currently broken?
+            Is the {selectedElevator} elevator currently broken?
           </DialogContentText>
         </DialogContent>
 
         {/* Modal Action Buttons */}
         <DialogActions>
-          <Button color="success">No</Button>
-          <Button variant="contained" color="error">
+          <Button
+            color="success"
+            onClick={() => updateData(selectedElevator, false)}
+          >
+            No
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => updateData(selectedElevator, true)}
+          >
             Yes
           </Button>
         </DialogActions>
