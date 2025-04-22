@@ -75,7 +75,14 @@ export default function Body() {
         flexGrow: "1",
       }}
     >
-      <Grid container size={1} direction="column" spacing={2} width="100%">
+      <Grid
+        container
+        size={1}
+        direction="column"
+        spacing={2}
+        width="100%"
+        pt={2}
+      >
         {/* North Elevator */}
         <Grid>
           <Card variant="outlined">
