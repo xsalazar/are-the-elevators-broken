@@ -36,7 +36,7 @@ export default function Body() {
     useState();
 
   // API URL
-  const api = "https://36zjfwfk51.execute-api.us-west-2.amazonaws.com/";
+  const api = "https://backend.aretheelevatorsbroken.com/";
 
   // Fetch initial API Data
   useEffect(() => {
