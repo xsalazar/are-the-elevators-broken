@@ -75,6 +75,7 @@ export default function Body() {
         flexGrow: "1",
       }}
     >
+      {/* Main Cards */}
       <Grid
         container
         size={1}
@@ -111,13 +112,18 @@ export default function Body() {
                 </Typography>
 
                 {/* Status Loader */}
-                {northElevatorIsBroken === undefined ? (
-                  <Skeleton />
-                ) : (
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {northElevatorIsBroken ? "Broken" : "Operational"}
-                  </Typography>
-                )}
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", width: "50%" }}
+                >
+                  {northElevatorIsBroken === undefined ? (
+                    <Skeleton />
+                  ) : northElevatorIsBroken ? (
+                    "Broken"
+                  ) : (
+                    "Operational"
+                  )}
+                </Typography>
               </Stack>
 
               {/* Last Updated Date */}
@@ -132,7 +138,10 @@ export default function Body() {
                 </Typography>
 
                 {/* Last Updated Loader */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", width: "50%" }}
+                >
                   {northElevatorTimestampUpdated === undefined ? (
                     <Skeleton />
                   ) : (
@@ -187,13 +196,18 @@ export default function Body() {
                 </Typography>
 
                 {/* Status Loader */}
-                {southElevatorIsBroken === undefined ? (
-                  <Skeleton />
-                ) : (
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {southElevatorIsBroken ? "Broken" : "Operational"}
-                  </Typography>
-                )}
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", width: "50%" }}
+                >
+                  {southElevatorIsBroken === undefined ? (
+                    <Skeleton />
+                  ) : southElevatorIsBroken ? (
+                    "Broken"
+                  ) : (
+                    "Operational"
+                  )}
+                </Typography>
               </Stack>
 
               {/* Last Updated Date */}
@@ -208,7 +222,10 @@ export default function Body() {
                 </Typography>
 
                 {/* Last Updated Loader */}
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.secondary", width: "50%" }}
+                >
                   {southElevatorTimestampUpdated === undefined ? (
                     <Skeleton />
                   ) : (
