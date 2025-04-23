@@ -19,6 +19,8 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import bypassImageUrl from "../assets/detour-map-pbot.png";
+import northElevatorImageUrl from "../assets/north-elevator.jpg";
+import southElevatorImageUrl from "../assets/south-elevator.jpg";
 
 export default function Body() {
   // Check if loading with query params
@@ -104,8 +106,8 @@ export default function Body() {
             <Card variant="outlined">
               {/* North Elevator Image */}
               <CardMedia
-                sx={{ height: "128px" }}
-                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+                sx={{ height: "128px", backgroundPosition: "center 70%" }}
+                image={northElevatorImageUrl}
               ></CardMedia>
 
               {/* North Elevator Content */}
@@ -188,8 +190,8 @@ export default function Body() {
             <Card variant="outlined">
               {/* South Elevator Image */}
               <CardMedia
-                sx={{ height: "128px" }}
-                image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg/2560px-Southeast_Portland%2C_Oregon_%28January_23%2C_2021%29_-_082.jpg"
+                sx={{ height: "128px", backgroundPosition: "center 70%" }}
+                image={southElevatorImageUrl}
               ></CardMedia>
 
               {/* South Elevator Content */}
