@@ -9,17 +9,17 @@
     "start": "vite"
   },
   "devDependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^7.3.9",
-    "@mui/material": "^7.3.9",
-    "@primer/octicons-react": "^19.25.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "axios": "^1.16.1",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "vite": "^8.0.13"
+    "@emotion/react": "~11.14.0",
+    "@emotion/styled": "~11.14.1",
+    "@mui/icons-material": "~9.0.0",
+    "@mui/material": "~9.0.0",
+    "@primer/octicons-react": "~19.25.0",
+    "@types/react": "~19.2.14",
+    "@types/react-dom": "~19.2.3",
+    "@vitejs/plugin-react": "~6.0.1",
+    "axios": "~1.16.1",
+    "react": "~19.2.6",
+    "react-dom": "~19.2.6",
+    "vite": "~8.0.13"
   }
 }
